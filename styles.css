@@ -1,0 +1,83 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --link-color: #1a0dab;
+    --header-bg-color: #f1f1f1;
+    --sidebar-bg-color: #f9f9f9;
+}
+
+body.dark-theme {
+    --bg-color: #181818;
+    --text-color: #e0e0e0;
+    --link-color: #8ab4f8;
+    --header-bg-color: #202020;
+    --sidebar-bg-color: #282828;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+header {
+    background-color: var(--header-bg-color);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+}
+
+header button {
+    background: none;
+    border: 1px solid var(--link-color);
+    color: var(--link-color);
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#sidebar {
+    background-color: var(--sidebar-bg-color);
+    padding: 1rem;
+    width: 250px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+#sidebar .folder {
+    margin-bottom: 1rem;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar li {
+    margin: 0.5rem 0;
+}
+
+#sidebar a {
+    text-decoration: none;
+    color: var(--link-color);
+}
+
+main {
+    flex-grow: 1;
+    padding: 2rem;
+}
