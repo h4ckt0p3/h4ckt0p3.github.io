@@ -1,12 +1,90 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>H4ckt0p3 web</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.0.12/marked.min.js"></script>
 </head>
 <body>
-  <script>
-    /* if (location.href.toLowerCase().indexOf('hacktopiealgoridom.com') === -1) {
-      location.replace('https://www.hacktopiealgoridom.com');
-    } */
-  </script>
+    <header>
+        <h1>Documentation</h1>
+        <button id="theme-toggle">Toggle Theme</button>
+    </header>
+    <nav id="sidebar"></nav>
+    <main id="content"></main>
+    <script>
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+        });
+
+        function loadMarkdown(url, element) {
+            fetch(url)
+                .then(response => response.text())
+                .then(text => {
+                    element.innerHTML = marked.parse(text);
+                });
+        }
+
+        function createMenu(items, parentElement) {
+            items.forEach(item => {
+                let li = document.createElement('li');
+                let a = document.createElement('a');
+                a.textContent = item.name;
+                a.href = '#';
+                a.addEventListener('click', () => {
+                    loadMarkdown(item.path, document.getElementById('content'));
+                });
+                li.appendChild(a);
+                parentElement.appendChild(li);
+            });
+        }
+
+        function createTree(structure, parentElement) {
+            structure.forEach(folder => {
+                let div = document.createElement('div');
+                div.classList.add('folder');
+                let h2 = document.createElement('h2');
+                h2.textContent = folder.name;
+                div.appendChild(h2);
+                let ul = document.createElement('ul');
+                createMenu(folder.files, ul);
+                div.appendChild(ul);
+                parentElement.appendChild(div);
+            });
+        }
+
+        const structure = [
+            {
+                name: 'Introduction',
+                files: [
+                    { name: 'Introduction 1', path: 'introduction/intro1.md' },
+                    { name: 'Introduction 2', path: 'introduction/intro2.md' }
+                ]
+            },
+            {
+                name: 'Components',
+                files: [
+                    { name: 'Component 1', path: 'components/component1.md' },
+                    { name: 'Component 2', path: 'components/component2.md' }
+                ]
+            },
+            {
+                name: 'Identity',
+                files: [
+                    { name: 'Identity 1', path: 'identity/identity1.md' },
+                    { name: 'Identity 2', path: 'identity/identity2.md' }
+                ]
+            }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            createTree(structure, document.getElementById('sidebar'));
+            loadMarkdown('README.md', document.getElementById('content'));
+        });
+    </script>
 </body>
 </html>
+
+
